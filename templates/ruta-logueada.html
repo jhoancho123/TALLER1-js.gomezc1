@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Logueada</title>
+</head>
+<body>
+    <h1>Bienvenido, {{ current_user.username }}</h1>
+    <h2>Perros en la guardería</h2>
+    <ul>
+        {% for perro in perros %}
+            <li>{{ perro['nombre'] }} ({{ perro['raza'] }}) - {{ perro['peso'] }}kg - {{ perro['edad'] }} años</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Concentrados disponibles</h2>
+    <ul>
+        {% for concentrado in concentrados %}
+            <li>{{ concentrado }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if current_user.rol == 'admin' %}
+        <form action="/agregar_concentrado" method="POST">
+            <input name="nombre" type="text" placeholder="Nombre del concentrado" required>
+            <input name="info" type="text" placeholder="Información del concentrado" required>
+            <button type="submit">Agregar concentrado</button>
+        </form>
+    {% endif %}
+
+    <a href="/logout">Cerrar sesión</a>
+</body>
+</html>
